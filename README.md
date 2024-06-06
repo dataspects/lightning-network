@@ -22,7 +22,7 @@ Based on https://www.bitstein.org/blog/setting-up-a-bitcoin-lightning-network-te
 
 These archives are expected to be unpacked at `$HOME/Downloads/` (hack).
 
-### EDIT: $HOME/.bash_aliases additions
+### EDIT: $HOME/.bash_aliases
 
 ```bash
 export BITCOIND_DIR="$HOME/lightning-network-implementation/.bitcoin"
