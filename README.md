@@ -40,15 +40,15 @@ alias lnd2="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lnd --lnddir=$LND2_DIR"
 alias lncli2="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lncli -n regtest --lnddir=$LND2_DIR --rpcserver=localhost:11009"
 ```
 
-| Command                                        | Comments            |
-| ---------------------------------------------- | ------------------- |
-| `bitcoind`                                     | Start               |
-| `bitcoin-cli stop`                             |                     |
-| `bitcoin-cli createwallet testwallet`          |                     |
-| `bitcoin-cli listwallets`                      |                     |
-| `bitcoin-cli loadwallet testwallet`            |                     |
-| `bitcoin-cli -generate 101`                    | Generate 101 blocks |
-| `bitcoin-cli -rpcwallet=testwallet getbalance` |                     |
+| Command                                        | Comments                                                           |
+| ---------------------------------------------- | ------------------------------------------------------------------ |
+| `bitcoind`                                     | Start (Might require `bitcoin-cli createwallet testwallet` first.) |
+| `bitcoin-cli stop`                             |                                                                    |
+| `bitcoin-cli createwallet testwallet`          |                                                                    |
+| `bitcoin-cli listwallets`                      |                                                                    |
+| `bitcoin-cli loadwallet testwallet`            |                                                                    |
+| `bitcoin-cli -generate 101`                    | Generate 101 blocks                                                |
+| `bitcoin-cli -rpcwallet=testwallet getbalance` |                                                                    |
 
 ### EDIT: $HOME/lightning-network-implementation/.bitcoin/bitcoin.conf
 
