@@ -153,7 +153,7 @@ Copy **identity_pubkey**.
 
 `lncli1 listpeers`
 
-## EXAMPLE: send bitcoins from lightning node 1 to lightning node 2
+## EXAMPLE: send bitcoins from bitcoin node to lightning node 2 and create channel between lightning node 1 and lightning node 2
 
 ### MINE bitcoins
 
