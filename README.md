@@ -40,7 +40,7 @@ alias lnd2="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lnd --lnddir=$LND2_DIR"
 alias lncli2="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lncli -n regtest --lnddir=$LND2_DIR --rpcserver=localhost:11009"
 ```
 
-| Command                                        | Comments                                                           |
+| FYI: Some important commands                                        | Comments                                                           |
 | ---------------------------------------------- | ------------------------------------------------------------------ |
 | `bitcoind`                                     | Start (Might require `bitcoin-cli createwallet testwallet` first.) |
 | `bitcoin-cli stop`                             |                                                                    |
@@ -88,7 +88,7 @@ bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
 bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-| Command          | Comments                 |
+| FYI: Some important commands          | Comments                 |
 | ---------------- | ------------------------ |
 | `lnd1`           | Start                    |
 | `lncli1 state`   |                          |
@@ -120,7 +120,7 @@ bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
 bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-| Command          | Comments                 |
+| FYI: Some important commands          | Comments                 |
 | ---------------- | ------------------------ |
 | `lnd2`           | Start                    |
 | `lncli2 state`   |                          |
