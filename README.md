@@ -72,6 +72,8 @@ zmqpubrawtx=tcp://127.0.0.1:28333
 [Application Options]
 
 restlisten=8080
+accept-amp=true
+accept-keysend=true
 
 [Bitcoin]
 
@@ -88,13 +90,15 @@ bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
 bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-| FYI: Some important commands          | Comments                 |
-| ---------------- | ------------------------ |
-| `lnd1`           | Start                    |
-| `lncli1 state`   |                          |
-| `lncli1 create`  |                          |
-| `lncli1 getinfo` | Requires unlocked wallet |
-| `lncli1 unlock`  |                          |
+| FYI: Some important commands            | Comments                 |
+| --------------------------------------- | ------------------------ |
+| `lnd1`                                  | Start                    |
+| `lncli1 state`                          |                          |
+| `lncli1 create`                         |                          |
+| `lncli1 getinfo`                        | Requires unlocked wallet |
+| `lncli1 unlock`                         |                          |
+| `lncli1 getinfo \| jq .identity_pubkey` |                          |
+| `lncli1 walletbalance`                  |                          |
 
 ### EDIT: $HOME/lightning-network-implementation/.lnd2/lnd.conf
 
@@ -104,6 +108,8 @@ bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 listen=0.0.0.0:9734
 rpclisten=localhost:11009
 restlisten=0.0.0.0:8180
+accept-amp=true
+accept-keysend=true
 
 [Bitcoin]
 
@@ -120,13 +126,15 @@ bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
 bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-| FYI: Some important commands          | Comments                 |
-| ---------------- | ------------------------ |
-| `lnd2`           | Start                    |
-| `lncli2 state`   |                          |
-| `lncli2 create`  |                          |
-| `lncli2 getinfo` | Requires unlocked wallet |
-| `lncli2 unlock`  |                          |
+| FYI: Some important commands            | Comments                 |
+| --------------------------------------- | ------------------------ |
+| `lnd2`                                  | Start                    |
+| `lncli2 state`                          |                          |
+| `lncli2 create`                         |                          |
+| `lncli2 getinfo`                        | Requires unlocked wallet |
+| `lncli2 unlock`                         |                          |
+| `lncli2 getinfo \| jq .identity_pubkey` |                          |
+| `lncli2 walletbalance`                  |                          |
 
 ### EXECUTE: setup nodes and connect lightning nodes
 
@@ -169,7 +177,7 @@ Copy **address**.
 
 ### SEND bitcoin to lightning node 2 address
 
-`bitcoin-cli sendtoaddress <address> 1` (sending 1)
+`bitcoin-cli sendtoaddress <address> 1` (sending 1 bitcoin)
 
 `bitcoin-cli -generate 6` (confirm)
 
@@ -189,9 +197,11 @@ Start channel:
 
 `lncli1 listchannels`
 
-### DEVELOPING: Keysend
+### DEVELOPING: Keysend (under construction!)
 
 https://docs.lightning.engineering/lightning-network-tools/lnd/send-messages-with-keysend
+
+`lncli2 sendpayment --dest <destination public key> --amt 2 --keysend`
 
 ## Run REST calls
 
