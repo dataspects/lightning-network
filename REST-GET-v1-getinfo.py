@@ -11,6 +11,7 @@ macaroon = codecs.encode(open(MACAROON_PATH, 'rb').read(), 'hex')
 headers = {'Grpc-Metadata-macaroon': macaroon}
 r = requests.get(url, headers=headers, verify=TLS_PATH)
 print(r.json())
+
 # {
 #    "version": <string>,
 #    "commit_hash": <string>,
