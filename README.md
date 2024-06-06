@@ -17,10 +17,10 @@ Based on https://www.bitstein.org/blog/setting-up-a-bitcoin-lightning-network-te
 
 ### DOWNLOAD/EXTRACT: Software
 
-* lnd-linux-amd64-v0.18.0-beta.tar.gz
-* bitcoin-27.0-x86_64-linux-gnu.tar.gz
+* **lnd-linux-amd64-v0.18.0-beta.tar.gz** (https://github.com/lightningnetwork/lnd/releases)
+* **bitcoin-27.0-x86_64-linux-gnu.tar.gz** (https://bitcoincore.org/bin/bitcoin-core-27.0/)
 
-These archives are expexted to be unpacked at `$HOME/Downloads/` (hack).
+These archives are expected to be unpacked at `$HOME/Downloads/` (hack).
 
 ### EDIT: $HOME/.bash_aliases additions
 
@@ -189,7 +189,13 @@ Start channel:
 
 `lncli1 listchannels`
 
+### DEVELOPING: Keysend
+
+https://docs.lightning.engineering/lightning-network-tools/lnd/send-messages-with-keysend
+
 ## Run REST calls
+
+https://lightning.engineering/api-docs/api/lnd/rest-endpoints
 
 ```bash
 export LND_DIR=$HOME/lightning-network-implementation/.lnd
