@@ -97,7 +97,7 @@ bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 | `lncli1 create`                         |                          |
 | `lncli1 getinfo`                        | Requires unlocked wallet |
 | `lncli1 unlock`                         |                          |
-| `lncli1 getinfo \| jq .identity_pubkey` |                          |
+| `lncli1 getinfo \| jq -r .identity_pubkey` |                          |
 | `lncli1 walletbalance`                  |                          |
 
 ### EDIT: $HOME/lightning-network-implementation/.lnd2/lnd.conf
@@ -133,7 +133,7 @@ bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 | `lncli2 create`                         |                          |
 | `lncli2 getinfo`                        | Requires unlocked wallet |
 | `lncli2 unlock`                         |                          |
-| `lncli2 getinfo \| jq .identity_pubkey` |                          |
+| `lncli2 getinfo \| jq -r .identity_pubkey` |                          |
 | `lncli2 walletbalance`                  |                          |
 
 ### EXECUTE: setup nodes and connect lightning nodes
@@ -229,6 +229,8 @@ poetry run python3 REST-***.py
 |                                                                      | `lncli1 listpeers`                                | `lncli2 listpeers`                                |
 |                                                                      | `lncli1 listchannels`                             | `lncli2 listchannels`                             |
 |                                                                      |                                                   |                                                   |
+
+* `lncli1 connect $(lncli2 getinfo | jq -r .identity_pubkey)@localhost:9734`
 
 ## INSPECT: channels
 
