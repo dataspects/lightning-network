@@ -1,15 +1,20 @@
-import base64, codecs, json, requests, os, hashlib, secrets
+import base64, codecs, json, requests, os, hashlib, secrets, pprint
 
 # https://lightning.engineering/api-docs/api/lnd/router/send-payment-v2
 # https://github.com/lightningnetwork/lnd/discussions/6357
+
+RECIPIENT_PORT = 8180
+RECIPIENT_PUBKEY = ""
+SATS_AMOUNT = 10000
+
+###
 
 def b64_hex_transform(plain_str: str) -> str:
     """Returns the b64 transformed version of a hex string"""
     a_string = bytes.fromhex(plain_str)
     return base64.b64encode(a_string).decode()
 
-
-REST_HOST = 'localhost:8080'
+REST_HOST = 'localhost:' + str(RECIPIENT_PORT)
 MACAROON_PATH = os.getenv("LND_DIR") + '/data/chain/bitcoin/regtest/admin.macaroon'
 TLS_PATH = os.getenv("LND_DIR") + '/tls.cert'
 
@@ -21,11 +26,9 @@ headers = {'Grpc-Metadata-macaroon': macaroon, "Content-Type": "application/json
 preimage = secrets.token_hex(32)
 payment_hash = hashlib.sha256(bytes.fromhex(preimage))
 
-dest = "02bad19b727facaad0f43b2dee4fd1e9cfe0c8c242d8f2b163237eced80ca9c643"
-
 data = {
-  'dest': b64_hex_transform(dest),
-  'amt': 1000,
+  'dest': b64_hex_transform(RECIPIENT_PUBKEY),
+  'amt': SATS_AMOUNT,
   'payment_hash': b64_hex_transform(payment_hash.hexdigest()),
   'timeout_seconds': 60,
   'fee_limit_sat': 10,
@@ -44,7 +47,7 @@ r = requests.post(
 
 for raw_response in r.iter_lines():
   json_response = json.loads(raw_response)
-  print(json_response)
+  pprint.pprint(json_response)
 
 # {
 #    "payment_hash": <string>,
