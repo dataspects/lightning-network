@@ -23,6 +23,6 @@ echo LIGHTNODE2_WALLET.total_balance = `lncli2 walletbalance | jq -r .total_bala
 
 echo
 echo lncli* listchannels
-lncli1 listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1_CHANNEL.remote_pubkey = $(echo $channel | jq -r .remote_pubkey); done
+lncli1 listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1_CHANNEL.remote_pubkey = $(echo $channel | jq -r .remote_pubkey) $(echo \n) $(echo $channel | jq -r .capacity); done
 lncli2 listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE2_CHANNEL.remote_pubkey = $(echo $channel | jq -r .remote_pubkey); done
 

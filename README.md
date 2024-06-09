@@ -217,12 +217,30 @@ poetry run python3 REST-***.py
 
 ## START
 
-| Bitcoin Core                                             | Lightning Network Daemon 1 (lnd1)                 | Lightning Network Daemon 2 (lnd2)                 |
-| -------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| Start<br/>`bitcoind`                                     | Start<br/>`lnd1`                                  | Start<br/>`lnd2`                                  |
-| `bitcoin-cli loadwallet testwallet`                      | `lncli1 unlock` (wallet)                          | `lncli2 unlock` (wallet)                          |
-| `bitcoin-cli -rpcwallet=testwallet getbalance`           | `lncli1 walletbalance`                            | `lncli1 walletbalance`                            |
-|                                                          | `lncli1 listpeers`                                | `lncli2 listpeers`                                |
-|                                                          | `lncli1 getinfo \| jq -r .identity_pubkey` (ipk1) | `lncli2 getinfo \| jq -r .identity_pubkey` (ipk2) |
-|                                                          | `lncli1 connect <ipk2>@localhost:9734`            |                                                   |
+| Bitcoin Core                                                         | Lightning Network Daemon 1 (lnd1)                 | Lightning Network Daemon 2 (lnd2)                 |
+| -------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| Start<br/>`bitcoind`                                                 | Start<br/>`lnd1`                                  | Start<br/>`lnd2`                                  |
+| `bitcoin-cli loadwallet testwallet`                                  | `lncli1 unlock` (wallet)                          | `lncli2 unlock` (wallet)                          |
+| `bitcoin-cli -rpcwallet=testwallet getbalance`                       | `lncli1 walletbalance`                            | `lncli1 walletbalance`                            |
+|                                                                      | `lncli1 listpeers`                                | `lncli2 listpeers`                                |
+|                                                                      | `lncli1 getinfo \| jq -r .identity_pubkey` (ipk1) | `lncli2 getinfo \| jq -r .identity_pubkey` (ipk2) |
+|                                                                      | `lncli1 connect <ipk2>@localhost:9734`            |                                                   |
 | If `lncli1 connect` fails:<br/>`bitcoin-cli -generate 100` (or more) |                                                   |                                                   |
+|                                                                      | `lncli1 listpeers`                                | `lncli2 listpeers`                                |
+|                                                                      | `lncli1 listchannels`                             | `lncli2 listchannels`                             |
+|                                                                      |                                                   |                                                   |
+
+## INSPECT: channels
+
+```
+lncli* listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1_CHANNEL.remote_pubkey = $(echo $channel | jq -r .remote_pubkey) capacity=$(echo $channel | jq -r .capacity); done
+```
+
+## OPERATE: send payment
+
+| Bitcoin Core                                                         | Lightning Network Daemon 1 (lnd1)                 | Lightning Network Daemon 2 (lnd2)                 |
+| -------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+
+# TOOLS
+
+* https://raspibolt.org/guide/bonus/bitcoin/mempool.html
