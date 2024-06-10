@@ -30,7 +30,7 @@ export BITCOIND_DIR="$HOME/lightning-network-implementation/.bitcoin"
 alias bitcoind="$HOME/Downloads/bitcoin-27.0-x86_64-linux-gnu/bitcoin-27.0/bin/bitcoind -datadir=$BITCOIND_DIR -fallbackfee=0.0002"
 alias bitcoin-cli="$HOME/Downloads/bitcoin-27.0-x86_64-linux-gnu/bitcoin-27.0/bin/bitcoin-cli -datadir=$BITCOIND_DIR"
 
-export LND1_DIR="$HOME/lightning-network-implementation/.lnd"
+export LND1_DIR="$HOME/lightning-network-implementation/.lnd1"
 export LND2_DIR="$HOME/lightning-network-implementation/.lnd2"
 
 alias lnd1="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lnd --lnddir=$LND1_DIR";
@@ -64,7 +64,7 @@ zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-### EDIT: $HOME/lightning-network-implementation/.lnd/lnd.conf
+### EDIT: $HOME/lightning-network-implementation/.lnd1/lnd.conf
 
 ```
 # https://docs.lightning.engineering/lightning-network-tools/lnd/lnd.conf
@@ -202,18 +202,6 @@ Start channel:
 https://docs.lightning.engineering/lightning-network-tools/lnd/send-messages-with-keysend
 
 `lncli2 sendpayment --dest <destination public key> --amt 2 --keysend`
-
-## Run REST calls
-
-https://lightning.engineering/api-docs/api/lnd/rest-endpoints
-
-```bash
-export LND_DIR=$HOME/lightning-network-implementation/.lnd
-```
-
-```bash
-poetry run python3 REST-***.py
-```
 
 ## START
 
