@@ -3,6 +3,10 @@ import base64, codecs, json, requests, os, hashlib, secrets, pprint
 # https://lightning.engineering/api-docs/api/lnd/router/send-payment-v2
 # https://github.com/lightningnetwork/lnd/discussions/6357
 
+def b64_transform(plain_str: str) -> str:
+    """Returns the b64 transformed version of a string"""
+    return base64.b64encode(plain_str.encode()).decode()
+
 def b64_hex_transform(plain_str: str) -> str:
     """Returns the b64 transformed version of a hex string"""
     a_string = bytes.fromhex(plain_str)
@@ -28,6 +32,7 @@ data = {
   'fee_limit_sat': 10,
   'dest_custom_records': {
     5482373484: b64_hex_transform(preimage),
+    34349334: b64_transform(os.getenv("MESSAGE"))
   },
 }
 
@@ -42,6 +47,8 @@ r = requests.post(
 for raw_response in r.iter_lines():
   json_response = json.loads(raw_response)
   pprint.pprint(json_response)
+
+print(base64.b64decode(b64_transform(os.getenv("MESSAGE"))).decode('utf-8'))
 
 # {
 #    "payment_hash": <string>,
