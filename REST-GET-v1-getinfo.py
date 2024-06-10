@@ -12,7 +12,7 @@ headers = {'Grpc-Metadata-macaroon': macaroon}
 r = requests.get(url, headers=headers, verify=TLS_PATH)
 print(r.json())
 
-# LND_DIR=/home/lex/lightning-network-implementation/.lnd poetry run python3 REST-GET-v1-getinfo.py
+# LND_DIR=$HOME/lightning-network-implementation/.lnd poetry run python3 REST-GET-v1-getinfo.py
 
 # {
 #    "version": <string>,
