@@ -3,18 +3,12 @@ import base64, codecs, json, requests, os, hashlib, secrets, pprint
 # https://lightning.engineering/api-docs/api/lnd/router/send-payment-v2
 # https://github.com/lightningnetwork/lnd/discussions/6357
 
-RECIPIENT_PORT = 8180
-RECIPIENT_PUBKEY = ""
-SATS_AMOUNT = 10000
-
-###
-
 def b64_hex_transform(plain_str: str) -> str:
     """Returns the b64 transformed version of a hex string"""
     a_string = bytes.fromhex(plain_str)
     return base64.b64encode(a_string).decode()
 
-REST_HOST = 'localhost:' + str(RECIPIENT_PORT)
+REST_HOST = 'localhost:' + str(os.getenv("RECIPIENT_PORT"))
 MACAROON_PATH = os.getenv("LND_DIR") + '/data/chain/bitcoin/regtest/admin.macaroon'
 TLS_PATH = os.getenv("LND_DIR") + '/tls.cert'
 
@@ -27,8 +21,8 @@ preimage = secrets.token_hex(32)
 payment_hash = hashlib.sha256(bytes.fromhex(preimage))
 
 data = {
-  'dest': b64_hex_transform(RECIPIENT_PUBKEY),
-  'amt': SATS_AMOUNT,
+  'dest': b64_hex_transform(os.getenv("RECIPIENT_PUBKEY")),
+  'amt': os.getenv("SATS_AMOUNT"),
   'payment_hash': b64_hex_transform(payment_hash.hexdigest()),
   'timeout_seconds': 60,
   'fee_limit_sat': 10,

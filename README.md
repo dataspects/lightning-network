@@ -221,7 +221,7 @@ poetry run python3 REST-***.py
 | -------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | Start<br/>`bitcoind`                                                 | Start<br/>`lnd1`                                  | Start<br/>`lnd2`                                  |
 | `bitcoin-cli loadwallet testwallet`                                  | `lncli1 unlock` (wallet)                          | `lncli2 unlock` (wallet)                          |
-| `bitcoin-cli -rpcwallet=testwallet getbalance`                       | `lncli1 walletbalance`                            | `lncli1 walletbalance`                            |
+| `bitcoin-cli -rpcwallet=testwallet getbalance`                       | `lncli1 walletbalance`                            | `lncli2 walletbalance`                            |
 |                                                                      | `lncli1 listpeers`                                | `lncli2 listpeers`                                |
 |                                                                      | `lncli1 getinfo \| jq -r .identity_pubkey` (ipk1) | `lncli2 getinfo \| jq -r .identity_pubkey` (ipk2) |
 |                                                                      | `lncli1 connect <ipk2>@localhost:9734`            |                                                   |
@@ -238,10 +238,11 @@ poetry run python3 REST-***.py
 lncli* listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1_CHANNEL.remote_pubkey = $(echo $channel | jq -r .remote_pubkey) capacity=$(echo $channel | jq -r .capacity); done
 ```
 
-## OPERATE: send payment
+## OPERATE: send payment between Lightning Network Daemons
 
-| Bitcoin Core                                                         | Lightning Network Daemon 1 (lnd1)                 | Lightning Network Daemon 2 (lnd2)                 |
-| -------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+1. `_check-channel-balance-as-seen-from-lnd1.sh`
+2. `./_send-from-lnd1-to-lnd2.sh`
+3. `_check-channel-balance-as-seen-from-lnd1.sh` &rArr; local_balance should decrease and remote_balance should increase 
 
 # TOOLS
 
