@@ -12,9 +12,16 @@ def b64_hex_transform(plain_str: str) -> str:
     a_string = bytes.fromhex(plain_str)
     return base64.b64encode(a_string).decode()
 
+###
+
 REST_HOST = 'localhost:' + str(os.getenv("RECIPIENT_PORT"))
 MACAROON_PATH = os.getenv("LND_DIR") + '/data/chain/bitcoin/regtest/admin.macaroon'
 TLS_PATH = os.getenv("LND_DIR") + '/tls.cert'
+
+###
+
+print("SATS:\t\t", os.getenv("SATS_AMOUNT"))
+print("MESSAGE:\t", base64.b64decode(b64_transform(os.getenv("MESSAGE"))).decode('utf-8'))
 
 url = f'https://{REST_HOST}/v2/router/send'
 macaroon = codecs.encode(open(MACAROON_PATH, 'rb').read(), 'hex')
@@ -36,7 +43,7 @@ data = {
   },
 }
 
-r = requests.post(
+stream_of_payment_updates = requests.post(
     url,
     headers=headers,
     stream=True,
@@ -44,11 +51,12 @@ r = requests.post(
     verify=TLS_PATH
 )
 
-for raw_response in r.iter_lines():
-  json_response = json.loads(raw_response)
-  pprint.pprint(json_response)
+print("Payment update stream:")
+for payment_update in stream_of_payment_updates.iter_lines():
+  pur = json.loads(payment_update)["result"]
+  print(pur["status"], ":\t", pur["failure_reason"])
 
-print(base64.b64decode(b64_transform(os.getenv("MESSAGE"))).decode('utf-8'))
+
 
 # {
 #    "payment_hash": <string>,

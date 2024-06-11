@@ -228,9 +228,18 @@ lncli* listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1
 
 ## OPERATE: send payment between Lightning Network Daemons
 
-1. `_check-channel-balance-as-seen-from-lnd1.sh`
-2. `./_send-from-lnd1-to-lnd2.sh`
-3. `_check-channel-balance-as-seen-from-lnd1.sh` &rArr; local_balance should decrease and remote_balance should increase 
+### 1. `_check-channel-balance-as-seen-from-lnd1.sh`
+
+* LOOK-UP-DATA: `.local_balance` and `.remote_balance`
+
+### 2. `./_send-from-lnd1-to-lnd2.sh`
+
+* UNDERSTAND-ERROR-MESSAGE: `FAILURE_REASON_INSUFFICIENT_BALANCE` in `payment_update["result"]["failure_reason"]` can be due to:
+    * `lncli* listpeers` = `[]`
+
+### 3. `_check-channel-balance-as-seen-from-lnd1.sh`
+
+* EFFECT: `local_balance` should decrease and `remote_balance` should increase 
 
 # TOOLS
 
