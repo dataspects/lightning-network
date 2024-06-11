@@ -1,6 +1,5 @@
 import base64, codecs, json, requests, os, hashlib, secrets, pprint
-
-RECIPIENT_PORT = 8180
+from termcolor import colored
 
 ###
 
@@ -19,12 +18,11 @@ headers = {'Grpc-Metadata-macaroon': macaroon, "Content-Type": "application/json
 # Fetch and print the channel balances
 balance_url = f'https://{REST_HOST}/v1/balance/channels'
 
-balance_response = requests.get(
+balance_data = requests.get(
     balance_url,
     headers=headers,
     verify=TLS_PATH
-)
+).json()
 
-balance_data = balance_response.json()
-print("Channel balances:")
+print(colored("Channel balances for", "blue", attrs=["bold"]), os.getenv("LND_DIR"))
 pprint.pprint(balance_data)

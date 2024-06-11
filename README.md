@@ -40,7 +40,7 @@ alias lnd2="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lnd --lnddir=$LND2_DIR"
 alias lncli2="$HOME/Downloads/lnd-linux-amd64-v0.18.0-beta/lncli -n regtest --lnddir=$LND2_DIR --rpcserver=localhost:11009"
 ```
 
-| FYI: Some important commands                                        | Comments                                                           |
+| FYI: Some important commands                   | Comments                                                           |
 | ---------------------------------------------- | ------------------------------------------------------------------ |
 | `bitcoind`                                     | Start (Might require `bitcoin-cli createwallet testwallet` first.) |
 | `bitcoin-cli stop`                             |                                                                    |
