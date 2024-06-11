@@ -60,9 +60,9 @@ for payment_update in stream_of_payment_updates.iter_lines():
                                 "FAILURE_REASON_NO_ROUTE",
                                 "FAILURE_REASON_INSUFFICIENT_BALANCE"
                               ]:
-     print(colored("Check channels?!", "red"), "(lncli* listchannels)")
+     print(colored("Check channels and local_balance!", "red"), "(lncli* listchannels)")
      #QUESTION: 
-     print(colored("Mine/confirm 200 blocks?!", "red"), "(bitcoin-cli -generate 200)")
+     print(colored("Mine/confirm 200 blocks!", "red"), "(bitcoin-cli -generate 200)")
 
 
 
