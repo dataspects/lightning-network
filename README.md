@@ -183,13 +183,11 @@ Copy **address**.
 
 ### CREATE channel
 
-`lncli1 getinfo`
+Start channel from Lightning Network Daemon 1 to Lightning Network Daemon 2:
 
-Copy **identity_pubkey**.
+`lncli1 openchannel $(lncli2 getinfo | jq -r .identity_pubkey) 100000` (100'000 satoshis), this returns `funding_txid`
 
-Start channel:
-
-`lncli2 openchannel <identity_pubkey> 100000` (100'000 satoshis)
+#UNDERSTAND: 1) lnd1 must have >= 100000 sats and 2) the channel opening must be confirmed by blocks mined on/by the bitcoin node 
 
 `bitcoin-cli -generate 10`
 
@@ -216,7 +214,6 @@ https://docs.lightning.engineering/lightning-network-tools/lnd/send-messages-wit
 | If `lncli1 connect` fails:<br/>`bitcoin-cli -generate 100` (or more) |                                                   |                                                   |
 |                                                                      | `lncli1 listpeers`                                | `lncli2 listpeers`                                |
 |                                                                      | `lncli1 listchannels`                             | `lncli2 listchannels`                             |
-|                                                                      |                                                   |                                                   |
 
 * `lncli1 connect $(lncli2 getinfo | jq -r .identity_pubkey)@localhost:9734`
 
@@ -228,18 +225,15 @@ lncli* listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1
 
 ## OPERATE: send payment between Lightning Network Daemons
 
-### 1. `_check-channel-balance-as-seen-from-lnd1.sh`
+### 1. `_check-system-as-seen-from-lnd1.sh`
 
-* LOOK-UP-DATA: `.local_balance` and `.remote_balance`
+* #LOOK-UP-DATA: `.local_balance` and `.remote_balance`
 
 ### 2. `./_send-from-lnd1-to-lnd2.sh`
 
-* UNDERSTAND-ERROR-MESSAGE: `FAILURE_REASON_INSUFFICIENT_BALANCE` in `payment_update["result"]["failure_reason"]` can be due to:
-    * `lncli* listpeers` = `[]`
+### 3. `_check-system-as-seen-from-lnd1.sh`
 
-### 3. `_check-channel-balance-as-seen-from-lnd1.sh`
-
-* EFFECT: `local_balance` should decrease and `remote_balance` should increase 
+* #EFFECT: `local_balance` should decrease and `remote_balance` should increase 
 
 # TOOLS
 

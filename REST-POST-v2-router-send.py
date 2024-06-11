@@ -1,4 +1,5 @@
 import base64, codecs, json, requests, os, hashlib, secrets, pprint
+from termcolor import colored
 
 # https://lightning.engineering/api-docs/api/lnd/router/send-payment-v2
 # https://github.com/lightningnetwork/lnd/discussions/6357
@@ -51,10 +52,17 @@ stream_of_payment_updates = requests.post(
     verify=TLS_PATH
 )
 
-print("Payment update stream:")
+print(colored("Payment update stream:", "blue"))
 for payment_update in stream_of_payment_updates.iter_lines():
   pur = json.loads(payment_update)["result"]
   print(pur["status"], ":\t", pur["failure_reason"])
+  if pur["failure_reason"] in [
+                                "FAILURE_REASON_NO_ROUTE",
+                                "FAILURE_REASON_INSUFFICIENT_BALANCE"
+                              ]:
+     print(colored("Check channels?!", "red"), "(lncli* listchannels)")
+     #QUESTION: 
+     print(colored("Mine/confirm 200 blocks?!", "red"), "(bitcoin-cli -generate 200)")
 
 
 

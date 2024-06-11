@@ -1,6 +1,6 @@
 import base64, codecs, json, requests, os, hashlib, secrets, pprint
+from termcolor import colored
 
-RECIPIENT_PORT = 8180
 
 ###
 
@@ -26,9 +26,10 @@ response = requests.get(
 )
 # pprint.pprint(json.loads(response.content))
 data = json.loads(response.content)
+print(os.getenv("LND_DIR"))
 for payment in data["payments"]:
-    pprint.pprint(payment)
     print(
+        colored("Payment", "blue"),
         payment["status"],
         payment["creation_time_ns"],
         payment["payment_hash"],
