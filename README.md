@@ -126,15 +126,15 @@ bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
 bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-| FYI: Some important commands            | Comments                 |
-| --------------------------------------- | ------------------------ |
-| `lnd2`                                  | Start                    |
-| `lncli2 state`                          |                          |
-| `lncli2 create`                         |                          |
-| `lncli2 getinfo`                        | Requires unlocked wallet |
-| `lncli2 unlock`                         |                          |
+| FYI: Some important commands               | Comments                 |
+| ------------------------------------------ | ------------------------ |
+| `lnd2`                                     | Start                    |
+| `lncli2 state`                             |                          |
+| `lncli2 create`                            |                          |
+| `lncli2 getinfo`                           | Requires unlocked wallet |
+| `lncli2 unlock`                            |                          |
 | `lncli2 getinfo \| jq -r .identity_pubkey` |                          |
-| `lncli2 walletbalance`                  |                          |
+| `lncli2 walletbalance`                     |                          |
 
 ### EXECUTE: setup nodes and connect lightning nodes
 
@@ -153,11 +153,7 @@ lncli2 create
 
 Connect lightning nodes
 
-`lncli2 getinfo`
-
-Copy **identity_pubkey**.
-
-`lncli1 connect <identity_pubkey>@localhost:9734`
+`lncli1 connect $(lncli2 getinfo | jq -r .identity_pubkey)@localhost:9734`
 
 `lncli1 listpeers`
 
