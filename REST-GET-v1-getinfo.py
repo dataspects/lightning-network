@@ -12,6 +12,7 @@ macaroon = codecs.encode(open(MACAROON_PATH, 'rb').read(), 'hex')
 headers = {'Grpc-Metadata-macaroon': macaroon}
 get_info = requests.get(url, headers=headers, verify=TLS_PATH).json()
 
+# pprint.pprint(get_info)
 print(colored("Get info for", "blue", attrs=["bold"]), os.getenv("LND_DIR"))
 print(
     "synced_to_chain:", get_info["synced_to_chain"],

@@ -213,6 +213,14 @@ https://docs.lightning.engineering/lightning-network-tools/lnd/send-messages-wit
 
 * `lncli1 connect $(lncli2 getinfo | jq -r .identity_pubkey)@localhost:9734`
 
+### TROUBLESHOOTING
+
+| Issue                                                                                            | Remedies                         |
+| ------------------------------------------------------------------------------------------------ | -------------------------------- |
+| *LNWL: Unable to synchronize wallet to chain, trying again in 5s: -8: Block height out of range* | lnd* --reset-wallet-transactions |
+|                                                                                                  |                                  |
+
+
 ## INSPECT: channels
 
 ```
@@ -231,6 +239,16 @@ lncli* listchannels | jq -c .channels[] | while read channel; do echo LIGHTNODE1
 
 * #EFFECT: `local_balance` should decrease and `remote_balance` should increase 
 
-# TOOLS
+## SETUP: Run Bitcoin full node Raspberry Pi
+
+https://howchoo.com/pi/run-bitcoin-full-node-raspberry-pi/
+
+* `nmap -sn 10.0.4.0/24`
+* `ssh snoopy@10.0.4.45` (g2)
+* https://bitcoincore.org/bin/bitcoin-core-27.0/bitcoin-27.0-aarch64-linux-gnu.tar.gz
+* https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu#step-4-enabling-ufw
+* `sudo nmap localhost`
+
+## TOOLS
 
 * https://raspibolt.org/guide/bonus/bitcoin/mempool.html
